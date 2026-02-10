@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder Informativo - Própolis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff9e6 0%, #f0e6d2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "🐝";
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.15;
+            top: -20px;
+            right: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        /* CONTENT SECTIONS */
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #ffe0b2;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #d84315;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+        }
+
+        .section-content {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .highlight-box {
+            background: #fff3e0;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #e65100;
+        }
+
+        /* BENEFITS GRID */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .benefit-card .emoji {
+            display: block;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .benefit-card h3 {
+            color: #d84315;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .benefit-card p {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* USAGE BOXES */
+        .usage-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .usage-box h4 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .usage-box p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .divider {
+            width: 50px;
+            height: 3px;
+            background: #ffc107;
+            margin: 15px auto;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.4em;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* BUTTON PRINT */
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #ffc107;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .print-button:hover {
+            background: #ffb300;
+            transform: scale(1.05);
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🐝 PRÓPOLIS 🍯</h1>
+            <p>O Tesouro Dourado das Abelhas para Sua Saúde!</p>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- O QUE É PRÓPOLIS -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="emoji">❓</span> O Que é Própolis?
+                </h2>
+                <div class="section-content">
+                    <p>Própolis é uma substância pegajosa e natural produzida pelas abelhas. Tem uma cor que varia entre amarelo, marrom e até avermelhado, dependendo das plantas da região. É como um "super adesivo" que as abelhas usam para proteger e fortalecer sua colmeia!</p>
+                    <div class="highlight-box">
+                        <strong>💡 Curiosidade:</strong> O nome "própolis" vem do grego "pro" (que significa "para") e "polis" (cidade). Literalmente significa "para a cidade" - porque a própolis é como um escudo protetor da cidade das abelhas!
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMO AS ABELHAS PRODUZEM -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="emoji">🏭</span> Como as Abelhas Produzem Própolis?
+                </h2>
+                <div class="section-content">
+                    <p>É um processo bem interessante e complexo! Veja como funciona:</p>
+                    <div style="margin-top: 20px;">
+                        <div class="highlight-box">
+                            <strong>Passo 1 - Coleta:</strong> As abelhas operárias voam até árvores, flores e plantas (como álamo, salgueiro, vidoeiros) e coletam uma resina pegajosa que encontram nos brotos e flores.
+                        </div>
+                        <div class="highlight-box">
+                            <strong>Passo 2 - Transporte:</strong> Carregam essa resina nas "bolsas" especiais que têm nas patas traseiras (as mesmas que usam para carregar pólen).
+                        </div>
+                        <div class="highlight-box">
+                            <strong>Passo 3 - Processamento:</strong> De volta à colmeia, as abelhas mastigam a resina, adicionam saliva, enzimas especiais e um pouco de cera para transformá-la em própolis.
+                        </div>
+                        <div class="highlight-box">
+                            <strong>Passo 4 - Aplicação:</strong> Espalharam a própolis por toda a colmeia, selando frestas, protegendo a entrada e criando um ambiente super higiênico e protegido!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BENEFÍCIOS GERAIS -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="emoji">⭐</span> Benefícios da Própolis para a Saúde
+                </h2>
+                <div class="section-content">
+                    <p>A própolis é repleta de substâncias benéficas! Contém flavonoides, fenólicos e outras moléculas incríveis que oferecem muitos benefícios:</p>
+                    
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="emoji">🛡️</div>
+                            <h3>Antioxidante</h3>
+                            <p>Protege as células contra danos causados pelos radicais livres.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="emoji">💪</div>
+                            <h3>Imunoestimulante</h3>
+                            <p>Fortalece o sistema imunológico para combater infecções.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="emoji">🦠</div>
+                            <h3>Antimicrobiano</h3>
+                            <p>Combate bactérias, vírus e fungos naturalmente.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="emoji">🔥</div>
+                            <h3>Anti-inflamatório</h3>
+                            <p>Reduz inflamações em diferentes partes do corpo.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="emoji">🎯</div>
+                            <h3>Cicatrizante</h3>
+                            <p>Acelera a cicatrização de feridas e machucados.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="emoji">😌</div>
+                            <h3>Calmante</h3>
+                            <p>Tem propriedades relaxantes e calmantes naturais.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- USO DIÁRIO -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="emoji">✨</span> Benefícios do Uso Diário
+                </h2>
+                <div class="section-content">
+                    <p>Quando você usa própolis regularmente, os benefícios se acumulam! Conheça o que você pode esperar:</p>
+                    
+                    <div class="usage-box">
+                        <h4><span>🌅</span> Curto Prazo (Primeiras Semanas)</h4>
+                        <p>• Mais energia e vitalidade<br>
+                        • Maior sensação de bem-estar<br>
+                        • Redução de fadiga<br>
+                        • Melhora na qualidade do sono</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>📅</span> Médio Prazo (1 a 3 Meses)</h4>
+                        <p>• Sistema imunológico mais forte<br>
+                        • Redução na frequência de resfriados<br>
+                        • Pele mais brilhante e saudável<br>
+                        • Melhora na disposição geral</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>🏆</span> Longo Prazo (3 Meses+)</h4>
+                        <p>• Benefícios antioxidantes acumulados<br>
+                        • Envelhecimento mais lento da pele<br>
+                        • Maior resistência a doenças<br>
+                        • Saúde geral e longevidade melhoradas</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>💬 Dica Important:</strong> A consistência é essencial! Para obter os melhores resultados, use própolis diariamente e sem interrupções. Consulte um profissional de saúde antes de iniciar qualquer suplementação.
+                    </div>
+                </div>
+            </div>
+
+            <!-- USO INTERNO -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="emoji">🥤</span> Própolis de Uso Interno
+                </h2>
+                <div class="section-content">
+                    <p>Use a própolis internamente para fortalecer seu corpo de dentro para fora!</p>
+                    
+                    <div class="usage-box">
+                        <h4><span>💧</span> Tintura de Própolis (Gotas)</h4>
+                        <p><strong>Como usar:</strong> Coloque 5 a 15 gotas em um copo de água ou suco e beba. <br>
+                        <strong>Frequência:</strong> 1 a 3 vezes ao dia.<br>
+                        <strong>Benefícios:</strong> Melhor absorção, atua rapidamente no sistema imunológico.</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>💊</span> Cápsulas ou Comprimidos</h4>
+                        <p><strong>Como usar:</strong> Siga as instruções da embalagem (geralmente 1 a 2 cápsulas por dia).<br>
+                        <strong>Frequência:</strong> De preferência com as refeições.<br>
+                        <strong>Benefícios:</strong> Fácil de usar, dosagem precisa, sem sabor amargo.</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>🍯</span> Própolis em Pó ou Mel</h4>
+                        <p><strong>Como usar:</strong> Dissolva em mel, suco morno ou chá.<br>
+                        <strong>Frequência:</strong> Uma colher de chá pela manhã.<br>
+                        <strong>Benefícios:</strong> Combinação poderosa com os benefícios do mel!</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>☕</span> Chá com Própolis</h4>
+                        <p><strong>Como usar:</strong> Adicione gotas de própolis em chás quentes (gengibre, camomila, gengibre).<br>
+                        <strong>Frequência:</strong> 1 a 2 xícaras por dia.<br>
+                        <strong>Benefícios:</strong> Quente e reconfortante, potencializa os efeitos do chá!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- USO EXTERNO -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="emoji">💆</span> Própolis de Uso Externo
+                </h2>
+                <div class="section-content">
+                    <p>Aplicar própolis na pele oferece benefícios incríveis! Veja como usar:</p>
+                    
+                    <div class="usage-box">
+                        <h4><span>💄</span> Creme ou Pomada</h4>
+                        <p><strong>Como usar:</strong> Aplique diretamente na pele limpa, fazendo massagem suave.<br>
+                        <strong>Frequência:</strong> 1 a 2 vezes ao dia.<br>
+                        <strong>Ideal para:</strong> Hidratação, anti-envelhecimento, pequenas feridas.</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>🚿</span> Sabonete com Própolis</h4>
+                        <p><strong>Como usar:</strong> Use no rosto e corpo durante o banho.<br>
+                        <strong>Frequência:</strong> Diariamente.<br>
+                        <strong>Ideal para:</strong> Limpeza profunda, acne, rejuvenescimento da pele.</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>🩹</span> Tintura para Feridas e Aftas</h4>
+                        <p><strong>Como usar:</strong> Aplique com algodão nas lesões 2 a 3 vezes ao dia.<br>
+                        <strong>Frequência:</strong> Conforme necessário.<br>
+                        <strong>Ideal para:</strong> Cicatrização rápida, aftas, pequenos cortes, herpes.</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>🌿</span> Máscara Facial</h4>
+                        <p><strong>Como usar:</strong> Misture pó de própolis com mel e aplique no rosto. Deixe 15-20 minutos.<br>
+                        <strong>Frequência:</strong> 1 a 2 vezes por semana.<br>
+                        <strong>Ideal para:</strong> Pele radiant, redução de rugas, firmeza.</p>
+                    </div>
+
+                    <div class="usage-box">
+                        <h4><span>🦷</span> Enxaguante Bucal</h4>
+                        <p><strong>Como usar:</strong> Dilua gotas de própolis em água e faça bochecho.<br>
+                        <strong>Frequência:</strong> 1 a 2 vezes ao dia.<br>
+                        <strong>Ideal para:</strong> Saúde bucal, gengivas inflamadas, aftas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DICAS FINAIS -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="emoji">💡</span> Dicas Importantes & Precauções
+                </h2>
+                <div class="section-content">
+                    <div class="highlight-box">
+                        <strong>✅ Qualidade:</strong> Sempre compre própolis de fornecedores confiáveis. Procure por produtos certificados e com boa reputação.
+                    </div>
+                    <div class="highlight-box">
+                        <strong>✅ Armazenamento:</strong> Guarde em local fresco e protegido da luz solar. Pode ser mantida em temperatura ambiente ou na geladeira.
+                    </div>
+                    <div class="highlight-box">
+                        <strong>✅ Teste de Alergia:</strong> Se tem alergia a produtos de abelha, mel ou própolis, evite o uso. Faça um teste de sensibilidade primeiro!
+                    </div>
+                    <div class="highlight-box">
+                        <strong>✅ Gestantes e Crianças:</strong> Consulte um médico antes de usar própolis se estiver grávida, amamentando ou dando a crianças pequenas.
+                    </div>
+                    <div class="highlight-box">
+                        <strong>✅ Medicamentos:</strong> Se toma medicamentos contínuos, converse com seu médico antes de adicionar própolis à sua rotina.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="divider"></div>
+            <p><strong>🐝 Própolis - O Presente da Natureza 🐝</strong></p>
+            <p>Descubra o poder natural de um dos maiores tesouros das abelhas!</p>
+            <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.8;">Este folder é informativo. Consulte sempre um profissional de saúde para orientações personalizadas.</p>
+        </div>
+    </div>
+
+    <button class="print-button" onclick="window.print()">🖨️ Imprimir</button>
+
+    <script>
+        // Animação suave ao carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`;
+            });
+        });
+
+        // Adicionar keyframe de animação
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
